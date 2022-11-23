@@ -1,0 +1,211 @@
+<html>
+  <head>
+    <title>NO T!ME NO SPACE - HTML5 video game by RedMagicBlue Games</title>
+    <meta charset="utf-8" />
+    <meta name="description" content="NO T!ME NO SPACE - Capture the antimatter particles to unlock secret portals into different dimensions. A 3D FPS Shooter built with love in A-Frame. A HTML5 video game by Sara Ferro & Chris Weil for Smartphone, Tablet, Laptop and PC, running on Windows, Mac, Linux, Android and iOS." />
+    <meta name="robots" content="index, follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="author" content="RedMagicBlue">
+    <meta property="og:image" content="./images/banner.jpg" />
+    <link rel="icon" type="image/png" href="./images/icon.png" />
+    <script src="assets/engine.js"></script>
+    <script src="assets/physics.js"></script>
+    <script src="assets/extras.js"></script>
+    <script src="assets/environment.js"></script>
+    <script src="assets/event.js"></script>
+    <script src="assets/gui.js"></script>
+    <script src="assets/walls.js"></script>
+    <script src="assets/sound.js"></script>
+    <script src="assets/audio.js"></script>
+  </head>
+
+<style>
+.a-dialog-allow-button {
+  background-color: white;
+}
+
+.a-dialog-deny-button {
+  background-color: white;
+}
+
+.a-dialog-ok-button {
+   background-color: white;
+ }
+</style>
+
+</head>
+
+
+<body bg-color="black">
+
+<a-scene physics="debug: false; gravity:-1.62; restitution: 0.9" loading-screen="dotsColor: red; backgroundColor: black" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: true" antialias="true">
+
+
+<!-- World -->
+
+<a-entity id="environment" environment="preset: tron; dressingAmount: 700; dressingColor: blue; groundColor: black; groundColor2: black; groundTexture:checkerboard; gridColor: red; ground: spikes; horizonColor:red;"></a-entity>
+
+
+<!-- Sound -->
+
+    <audio id="music" src="assets/music.mp3"     crossorigin="anonymous"></audio>
+	
+    <audio id="laser" src="assets/laser.m4a"     crossorigin="anonymous"></audio>
+	
+    <audio id="effect1" src="assets/effect1.m4a" crossorigin="anonymous"></audio>
+    <audio id="effect2" src="assets/effect2.m4a" crossorigin="anonymous"></audio>
+    <audio id="effect3" src="assets/effect3.m4a" crossorigin="anonymous"></audio>
+	
+	
+<!-- Play -->
+	
+<a-image id="play" src="images/play.png" transparent="true" scale="8 8 0" position="0 46 0" gui-interactable static-body animation__mouseenter="property: scale; to: 0 0 0; startEvents: click; dur: 500" event-set__click="_target: #rig; position: 0 0 18"></a-image>		
+
+
+<!-- Camera -->
+
+<a-entity id="rig" position="0 40 12"movement-controls look-controls="pointerLockEnabled:true;" reset-on-collision="with: a-box">
+	<a-entity id="camera" camera position="0 1.6 0" cursor-visible="true">
+		
+		<a-gui-cursor id="cursor"
+						  raycaster="objects: [gui-interactable]"
+						  fuse="true" fuse-timeout="1000"
+						  color="white"
+						  hover-color="orange"
+						  active-color="orange"
+						  design="ring" >
+		</a-gui-cursor>
+
+	</a-entity>
+</a-entity>
+
+
+<!-- Static Objects -->
+
+<a-entity id="antimatter" rotation="0 0 0" position="0 1 0" animation="property: rotation; to: -360 360 -360; loop: true; easing: linear; dur: 5000"> 
+	<a-sphere id="antimatter1" gui-interactable color="black" radius="1" position="-20 3 0" sound="src: #effect1; on: click;" static-body animation="property: position; to: 20 1 0;  loop: true; easing: linear; dur: 10500; dir: alternate;" animation__mouseenter="property: scale; to: 0 0 0; startEvents: click; dur: 500"; event-set__click="_target: #exit1; position: 0 -300 0;"></a-sphere>
+	<a-sphere id="antimatter2" gui-interactable color="black" radius="1" position="-10 3 4" sound="src: #effect1; on: click;" static-body animation="property: position; to: 10 1 4;  loop: true; easing: linear; dur: 10500; dir: alternate;" animation__mouseenter="property: scale; to: 0 0 0; startEvents: click; dur: 500"; event-set__click="_target: #exit2; position: 0 -400 0;"></a-sphere>
+	<a-sphere id="antimatter3" gui-interactable color="black" radius="1" position="10 3 8"  sound="src: #effect1; on: click;" static-body animation="property: position; to: -10 1 8; loop: true; easing: linear; dur: 10500; dir: alternate;" animation__mouseenter="property: scale; to: 0 0 0; startEvents: click; dur: 500"; event-set__click="_target: #exit3; position: 0 -500 0;"></a-sphere>
+</a-entity>
+
+<a-entity rotation="0 0 0" position="0 11 0" animation="property: rotation; to: 360 360 -360; loop: true; easing: linear; dur: 10000"> 
+	<a-box color="red" id="box1" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="2 2 2"    animation="property: rotation; to: 360 0 360;   loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box>  
+	<a-box color="red" id="box2" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="4 2 4"    animation="property: rotation; to: -360 0 -360; loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box> 
+	<a-box color="red" id="box3" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="6 2 6"    animation="property: rotation; to: 360 0 360;   loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box> 
+	<a-box color="red" id="box4" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="8 2 8"    animation="property: rotation; to: -360 0- 360; loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box> 
+	<a-box color="red" id="box5" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="-8 2 -8"  animation="property: rotation; to: 360 0 360;   loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box> 
+	<a-box color="red" id="box6" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="-6 2 -6"  animation="property: rotation; to: -360 0 -360; loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box> 
+	<a-box color="red" id="box7" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="-4 2 -4"  animation="property: rotation; to: 360 0 360;   loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box> 
+	<a-box color="red" id="box8" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="-2 2 -2"  animation="property: rotation; to: -360 0 -360; loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box> 
+	<a-box color="red" id="box9" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="0 2 0"    animation="property: rotation; to: 360 0 360;   loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box> 
+</a-entity>
+
+<a-entity rotation="0 0 0" position="5 20 0" animation="property: rotation; to: 360 360 -360; loop: true; easing: linear; dur: 10000"> 
+	<a-box color="red" id="box10" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="2 2 2"    animation="property: rotation; to: -360 0 -360; loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box> 
+	<a-box color="red" id="box11" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="4 2 4"    animation="property: rotation; to: 360 0 360;   loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box> 
+	<a-box color="red" id="box12" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="6 2 6"    animation="property: rotation; to: -360 0 -360; loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box> 
+	<a-box color="red" id="box13" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="8 2 8"    animation="property: rotation; to: 360 0 360;   loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box> 
+	<a-box color="red" id="box14" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="-8 2 -8"  animation="property: rotation; to: -360 0 -360; loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box> 
+	<a-box color="red" id="box15" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="-6 2 -6"  animation="property: rotation; to: 360 0 360;   loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box> 
+	<a-box color="red" id="box16" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="-4 2 -4"  animation="property: rotation; to: -360 0 -360; loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box> 
+	<a-box color="red" id="box17" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="-2 2 -2"  animation="property: rotation; to: 360 0 360;   loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box> 
+	<a-box color="red" id="box18" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="0 2 0"    animation="property: rotation; to: -360 0 -360; loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box> 
+</a-entity>
+
+<a-entity rotation="0 0 0" position="-10 20 0" animation="property: rotation; to: 360 360 -360; loop: true; easing: linear; dur: 10000"> 
+	<a-box color="red" id="box19" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="2 2 2"    animation="property: rotation; to: 360 0 360;   loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box>  
+	<a-box color="red" id="box20" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="4 2 4"    animation="property: rotation; to: -360 0 -360; loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box>  
+	<a-box color="red" id="box21" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="6 2 6"    animation="property: rotation; to: 360 0 360;   loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box>  
+	<a-box color="red" id="box22" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="8 2 8"    animation="property: rotation; to: -360 0 -360; loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box>  
+	<a-box color="red" id="box23" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="-8 2 -8"  animation="property: rotation; to: 360 0 360;   loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box>  
+	<a-box color="red" id="box24" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="-6 2 -6"  animation="property: rotation; to: -360 0 -360; loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box> 
+	<a-box color="red" id="box25" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="-4 2 -4"  animation="property: rotation; to: 360 0 360;   loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box>  
+	<a-box color="red" id="box26" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="-2 2 -2"  animation="property: rotation; to: -360 0 -360; loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box>  
+	<a-box color="red" id="box27" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="0 2 0"    animation="property: rotation; to: 360 0 360;   loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box> 
+</a-entity>
+
+<a-entity rotation="0 0 0" position="15 11 0" animation="property: rotation; to: 360 360 -360; loop: true; easing: linear; dur: 10000"> 
+	<a-box color="red" id="box28" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="2 2 2"    animation="property: rotation; to: -360 0 -360; loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box>  
+	<a-box color="red" id="box29" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="4 2 4"    animation="property: rotation; to: 360 0 360;   loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box>  
+	<a-box color="red" id="box30" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="6 2 6"    animation="property: rotation; to: -360 0 -360; loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box>   
+	<a-box color="red" id="box31" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="8 2 8"    animation="property: rotation; to: 360 0 360;   loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box>   
+	<a-box color="red" id="box32" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="-8 2 -8"  animation="property: rotation; to: -360 0 -360; loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box>   
+	<a-box color="red" id="box33" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="-6 2 -6"  animation="property: rotation; to: 360 0 360;   loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box>   
+	<a-box color="red" id="box34" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="-4 2 -4"  animation="property: rotation; to: -360 0 -360; loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box>   
+	<a-box color="red" id="box35" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="-2 2 -2"  animation="property: rotation; to: 360 0 360;   loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box>   
+	<a-box color="red" id="box36" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="0 2 0"    animation="property: rotation; to: -360 0 -360; loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box>  
+</a-entity>
+
+<a-entity rotation="0 0 0" position="-15 11 0" animation="property: rotation; to: 360 360 -360; loop: true; easing: linear; dur: 10000"> 
+	<a-box color="red" id="box37" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="2 2 2"    animation="property: rotation; to: 360 0 360;   loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box> 
+	<a-box color="red" id="box38" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="4 2 4"    animation="property: rotation; to: -360 0 -360; loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box> 
+	<a-box color="red" id="box39" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="6 2 6"    animation="property: rotation; to: 360 0 360;   loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box> 
+	<a-box color="red" id="box40" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="8 2 8"    animation="property: rotation; to: -360 0 -360; loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box> 
+	<a-box color="red" id="box41" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="-8 2 -8"  animation="property: rotation; to: 360 0 360;   loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box> 
+	<a-box color="red" id="box42" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="-6 2 -6"  animation="property: rotation; to: -360 0 -360; loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box> 
+	<a-box color="red" id="box43" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="-4 2 -4"  animation="property: rotation; to: 360 0 360;   loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box> 
+	<a-box color="red" id="box44" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="-2 2 -2"  animation="property: rotation; to: -360 0 -360; loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box> 
+	<a-box color="red" id="box45" gui-interactable sound="src: #effect3; on: click;" scale="1.5 1.5 1.5" static-body position="0 2 0"    animation="property: rotation; to: 360 0 360;   loop: true; easing: linear; dur: 5000" animation__mouseenter="property: position; to: 0 500 0; startEvents: click; dur: 5000"></a-box> 
+</a-entity>
+
+
+<!-- Dynamic Objects -->
+
+	<a-box color="blue" id="box46" gui-interactable sound="src: #laser; on: click;" scale="1.5 1.5 1.5" dynamic-body="linearDamping: 0.01;" rotation="45 0 -45"   position="0 80 1"   event-set__click="material.color: red;" ></a-box> 
+	<a-box color="blue" id="box47" gui-interactable sound="src: #laser; on: click;" scale="1.5 1.5 1.5" dynamic-body="linearDamping: 0.01;" rotation="45 0 -45"   position="1 80 -1"  event-set__click="material.color: red;" ></a-box> 
+	<a-box color="blue" id="box48" gui-interactable sound="src: #laser; on: click;" scale="1.5 1.5 1.5" dynamic-body="linearDamping: 0.01;" rotation="0 45 0"     position="-1 80 1"  event-set__click="material.color: red;" ></a-box> 
+	<a-box color="blue" id="box49" gui-interactable sound="src: #laser; on: click;" scale="1.5 1.5 1.5" dynamic-body="linearDamping: 0.01;" rotation="-45 0 45"   position="2 80 -1"  event-set__click="material.color: red;" ></a-box> 
+	<a-box color="blue" id="box50" gui-interactable sound="src: #laser; on: click;" scale="1.5 1.5 1.5" dynamic-body="linearDamping: 0.01;" rotation="45 0 45"    position="-2 80 1"  event-set__click="material.color: red;" ></a-box> 
+	<a-box color="blue" id="box51" gui-interactable sound="src: #laser; on: click;" scale="1.5 1.5 1.5" dynamic-body="linearDamping: 0.01;" rotation="-45 45 0"   position="0 85 -1"  event-set__click="material.color: red;" ></a-box> 
+	<a-box color="blue" id="box52" gui-interactable sound="src: #laser; on: click;" scale="1.5 1.5 1.5" dynamic-body="linearDamping: 0.01;" rotation="45 45 45"   position="1 85 1"   event-set__click="material.color: red;" ></a-box> 
+	<a-box color="blue" id="box53" gui-interactable sound="src: #laser; on: click;" scale="1.5 1.5 1.5" dynamic-body="linearDamping: 0.01;" rotation="-45 -45 45" position="-1 85 -1" event-set__click="material.color: red;" ></a-box> 
+	<a-box color="blue" id="box54" gui-interactable sound="src: #laser; on: click;" scale="1.5 1.5 1.5" dynamic-body="linearDamping: 0.01;" rotation="0 -45 0"    position="0 75 1"   event-set__click="material.color: red;" ></a-box> 
+        
+        <a-octahedron dynamic-body color="yellow"  visible="true" gui-interactable scale="1.5 1.5 1.5" rotation="0 -45 0" position="0 300 0" sound="src: #effect2; on: click;" animation__mouseenter="property: scale; to: 0 0 0; startEvents: click; dur: 500"; event-set__click="_target: #portal1; position:10 3 -10;  visible: true;" ></a-octahedron>
+        <a-octahedron dynamic-body color="green"   visible="true" gui-interactable scale="1.5 1.5 1.5" rotation="0 -45 0" position="0 400 0" sound="src: #effect2; on: click;" animation__mouseenter="property: scale; to: 0 0 0; startEvents: click; dur: 500"; event-set__click="_target: #portal2; position:-10 3 10;  visible: true;" ></a-octahedron>
+        <a-octahedron dynamic-body color="magenta" visible="true" gui-interactable scale="1.5 1.5 1.5" rotation="0 -45 0" position="0 500 0" sound="src: #effect2; on: click;" animation__mouseenter="property: scale; to: 0 0 0; startEvents: click; dur: 500"; event-set__click="_target: #portal3; position:10 3 10;   visible: true;" ></a-octahedron>
+        
+	
+<!-- Portals -->
+
+<a-entity id="portal1" visible="false" scale="1 1 1" position="10 1000 -10">
+	<a-box static-body  color="yellow" scale="2 6 0.2" position="0 0 0" rotation="0 0 0"></a-box>
+	<a-box static-body  color="yellow" scale="2 6 0.2" position="0 0 2" rotation="0 0 0"></a-box>
+	<a-box static-body  color="yellow" scale="2 6 0.2" position="0 0 1" rotation="0 90 0" opacity="0.5" gui-interactable onclick="location.href='assets/world1.html'"></a-box>
+</a-entity>
+
+<a-entity id="portal2" visible="false" scale="1 1 1" position="-10 1000 10">
+	<a-box static-body color="green" scale="2 6 0.2" position="0 0 0" rotation="0 0 0"></a-box>
+	<a-box static-body color="green" scale="2 6 0.2" position="0 0 2" rotation="0 0 0"></a-box>
+	<a-box static-body color="green" scale="2 6 0.2" position="0 0 1" rotation="0 90 0" opacity="0.5"   gui-interactable onclick="location.href='assets/world2.html'"></a-box>
+</a-entity>
+
+<a-entity id="portal3" visible="false" scale="1 1 1" position="-10 1000 -10">
+	<a-box static-body color="magenta" scale="2 6 0.2" position="0 0 0" rotation="0 0 0"></a-box>
+	<a-box static-body color="magenta" scale="2 6 0.2" position="0 0 2" rotation="0 0 0"></a-box>
+	<a-box static-body color="magenta" scale="2 6 0.2" position="0 0 1" rotation="0 90 0" opacity="0.5" gui-interactable onclick="location.href='assets/world3.html'"></a-box>
+</a-entity>
+
+	
+<!-- Walls -->
+
+<a-box static-body id="wall1" material="opacity: 0.0; transparent: true" rotation="0 0 0"   scale="60 10000 2" position="0 0 21.0">  </a-box>
+<a-box static-body id="wall2" material="opacity: 0.0; transparent: true" rotation="0 -90 0" scale="60 10000 2" position="20 0 0"  >  </a-box>
+<a-box static-body id="wall3" material="opacity: 0.0; transparent: true" rotation="0 -90 0" scale="60 10000 2" position="-18 0 0" >  </a-box>
+<a-box static-body id="wall4" material="opacity: 0.0; transparent: true" rotation="0 0 0"   scale="60 10000 2" position="0 0 -15" >  </a-box>
+ 
+	
+<!-- Floor -->
+
+<a-plane static-body id="floor" material="opacity: 0.0;  transparent: true; " width="1000" height="1000" rotation="-90 0 0" position="0 0 0"></a-plane>
+<a-box color="black" scale="200 20 200" position="0 -12 0" audio="src: #music; loop: true;"></a-box>
+
+<a-plane static-body id="exit1" material="opacity: 0.0;  transparent: true; " width="1000" height="1000" rotation="-90 0 0" position="0 280 0"></a-plane>
+<a-plane static-body id="exit2" material="opacity: 0.0;  transparent: true; " width="1000" height="1000" rotation="-90 0 0" position="0 380 0"></a-plane>
+<a-plane static-body id="exit3" material="opacity: 0.0;  transparent: true; " width="1000" height="1000" rotation="-90 0 0" position="0 480 0"></a-plane>
+
+</a-scene>
+             
+
+  </body>
+</html>

@@ -1,0 +1,104 @@
+<html>
+  <head>
+    <title>NO T!ME NO SPACE - HTML5 video game by RedMagicBlue Games</title>
+    <meta charset="utf-8" />
+    <meta name="description" content="NO T!ME NO SPACE - Capture the antimatter particles to unlock secret portals into different dimensions. A 3D FPS Shooter built with love in A-Frame. A HTML5 video game by Sara Ferro & Chris Weil for Smartphone, Tablet, Laptop and PC, running on Windows, Mac, Linux, Android and iOS." />
+    <meta name="robots" content="noindex, nofollow, norobot">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="author" content="RedMagicBlue">
+    <meta property="og:image" content="../images/icon.png" />
+    <link rel="icon" type="image/png" href="../images/icon.png" />
+    <script src="engine.js"></script>
+    <script src="physics.js"></script>
+    <script src="extras.js"></script>
+    <script src="environment.js"></script>
+    <script src="event.js"></script>
+    <script src="gui.js"></script>
+    <script src="walls.js"></script>
+    <script src="sound.js"></script>
+    <script src="audio.js"></script>
+  </head>
+
+<style>
+.a-dialog-allow-button {
+  background-color: white;
+}
+
+.a-dialog-deny-button {
+  background-color: white;
+}
+
+.a-dialog-ok-button {
+   background-color: white;
+ }
+</style>
+
+</head>
+
+
+<body bg-color="black">
+
+<a-scene physics="debug: false; gravity:-1.62; restitution: 0.9" loading-screen="dotsColor: red; backgroundColor: black" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: true" antialias="true">
+
+
+<!-- World -->
+
+<a-entity id="environment" environment="preset: tron; dressingAmount: 700; dressingColor: green; groundColor: green; groundColor2: green; groundTexture:checkerboard; gridColor: transparent; ground: spikes; horizonColor:green;"></a-entity>
+
+
+<!-- Sound -->
+
+    <audio id="music" src="liftoff.mp3"  crossorigin="anonymous"></audio>
+	
+
+<!-- Play -->
+	
+<a-image id="play" src="../images/newgame.png" transparent="true" scale="8 8 0" position="0 47 0" gui-interactable static-body onclick="location.href='../index.html'"></a-image>		
+
+
+<!-- Camera -->
+
+<a-entity id="rig" position="0 40 12"movement-controls look-controls="pointerLockEnabled:true;" reset-on-collision="with: a-box">
+	<a-entity id="camera" camera position="0 1.6 0" cursor-visible="true">
+		
+		<a-gui-cursor id="cursor"
+						  raycaster="objects: [gui-interactable]"
+						  fuse="true" fuse-timeout="1000"
+						  color="white"
+						  hover-color="orange"
+						  active-color="orange"
+						  design="ring" >
+		</a-gui-cursor>
+
+	</a-entity>
+</a-entity>
+
+
+<!-- UFO -->
+
+<a-entity rotation="0 0 0" scale="0.3 0.3 0.3" position="0 -100 -15" animation="property: position; to: 0 500 -15;  loop: false; easing: linear; dur: 50000">
+
+	<a-sphere color="black" scale="1 0.7 1" radius="3" static-body position="0 0 0" ></a-sphere> 
+
+	<a-sphere color="black" scale="3 0.1 3" radius="5" static-body position="0 0 0" ></a-sphere> 
+</a-entity>
+
+	
+<!-- Walls -->
+
+<a-box static-body id="wall1" material="opacity: 0.0; transparent: true" rotation="0 0 0"   scale="60 10000 2" position="0 0 21.0">  </a-box>
+<a-box static-body id="wall2" material="opacity: 0.0; transparent: true" rotation="0 -90 0" scale="60 10000 2" position="20 0 0"  >  </a-box>
+<a-box static-body id="wall3" material="opacity: 0.0; transparent: true" rotation="0 -90 0" scale="60 10000 2" position="-18 0 0" >  </a-box>
+<a-box static-body id="wall4" material="opacity: 0.0; transparent: true" rotation="0 0 0"   scale="60 10000 2" position="0 0 -15" >  </a-box>
+ 
+	
+<!-- Floor -->
+
+<a-plane static-body id="floor" material="opacity: 0.0;  transparent: true; " width="1000" height="1000" rotation="-90 0 0" position="0 0 0"></a-plane>
+<a-box color="black" scale="200 20 200" position="0 -12 0" audio="src: #music; loop: false;"></a-box>
+
+</a-scene>
+             
+
+  </body>
+</html>
